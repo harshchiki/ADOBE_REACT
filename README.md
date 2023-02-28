@@ -190,6 +190,41 @@ Only executable global modules are in root
  from any terminal $ tsc
 
 
- ===
+ ==========
 
- $npm install
+ Functional Style of Programming: ==> Code Reusability ==> OCP ==> Open for extension and closed for change
+ High Order Functions:
+ 1) Functions which accept function as argument
+ 2) function which return a function
+
+ 
+ function forEach(elems) {
+    for(i=0; i < elems.length; i++) {
+        console.log(elems[i]);
+    }
+ }
+
+
+ function forEach(elems) {
+    for(i=0; i < elems.length; i++) {
+        alert(elems[i]);
+    }
+ }
+
+HOF:
+
+ function forEach(elems, action) {
+    for(i=0; i < elems.length; i++) {
+       action(elems[i]);
+    }
+ }
+
+forEach([5,2,11,5], console.log);
+forEach([5,2,11,5], alert);
+
+
+Commonly used HOF:
+filter, map, reduce
+
+Filter ==> return a subset based on predicate function [true or false]
+in node js one file is one module; all members are private to module until its exported
