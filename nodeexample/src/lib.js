@@ -17,8 +17,28 @@ function forEach(elems, action) {
     return result;
  }
 
+// HOF
+ function map(elems, transformFn) {
+   let result = [];
+   forEach(elems, function(elem) {
+      result.push(transformFn(elem))
+   });
+   return result;
+ }
+
+ function memo(fn) {
+   var cache = {}; // cache is a closure; fn is a closure
+   return function(arg){
+      if(!cache[arg]) {
+         cache[arg] = fn(arg);
+      } 
+      return cache[arg];
+   }
+ }
 
  module.exports = {
     forEach,
-    filter
+    filter,
+    map,
+    memo
  }

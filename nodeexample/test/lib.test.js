@@ -19,4 +19,5 @@ describe("testing lib module", () => {
         var res = filter([3,20,51,4,10], predicate);
         expect(res.length).to.equal(3);
     });
+    // test map function
 });

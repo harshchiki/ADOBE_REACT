@@ -244,3 +244,29 @@ E2E testing: Puppetter, Cypress, Protractor, webdriver{selenium}, PlayWright
 AAA ==> Assemble Action Assert
 
 Chai is a BDD / TDD assertion library 
+
+==========
+
+HOF ==> function return a function
+
+function adder(base) {
+    return function (value) {
+        return base + value;
+    }
+}
+
+var fiveAdder = adder(5);
+
+var tenAdder = adder(10);
+
+
+Closure ==> inner functions can access all the members of outer function
+
+for fiveAdder ==> base:5 is a closure
+for teAdder ==> base:10 is a closure
+
+--> Memoization pattern
+
+memoization or memoisation is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
+
+
