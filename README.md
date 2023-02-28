@@ -269,4 +269,106 @@ for teAdder ==> base:10 is a closure
 
 memoization or memoisation is an optimization technique used primarily to speed up computer programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again.
 
+ECMA2015 ==> JS2015 ==> ES 6 ==> JS 6
+
+Most of the engines support ES 5
+
+Write code in ES 6, TS, CoffeeScript, LiveScript, DART
+
+Pre-processor, Transpiler, trans-compiler
+
+Babel ==> transpiler for ES 6+ to lower version of JS
+TSC ==> .ts ==> .js
+csc ==> .cs ==> .js
+
+https://caniuse.com/
+
+Pollyfill
+A polyfill is a piece of code (usually JavaScript on the Web) used to provide modern functionality on older browsers that do not natively support.
+
+ES 6 Features:
+
+1) Arrow
+2) let and const for declaring scope variables
+ES 5 supports only global and function scopes not block scope
+var g = 100;
+function doTask() {
+    var a = 10;
+    if(g > a) {
+        var b = 30; // hoisting
+        // here a, g, b are visible
+    }
+    // here am b and g are visible
+}
+doTask();
+// here g is visible
+
+JS creation context
+
+function doTask() {
+    var a = 10;
+    var b; // hoisting
+    if( g > a) {
+        b = 30;
+    }
+
+---
+With ES 6+
+function doTask() {
+    var a = 10;
+    if(g > a) {
+        let b = 30; // block scope and not hoisted
+        // here a, g, b are visible
+    }
+    // here am b and g are visible 
+}
+
+function doTask() {
+    var a = 10;
+    if(g > a) {
+        (
+            var b = 30;
+        )();
+    }
+    // here am b and g are visible 
+}
+
+3) Destructuring and spread operator [...]
+
+let product =  {name:"iPhone 14", price:98000.00, "category": "mobile"};
+
+ES 5 way:
+console.log(product.name, product.price);
+
+ES 6 way:
+let {name, price} = product; // name and price will be local variables
+
+console.log(name, price); 
+
+var colors = ["red", "green", "blue", "pink"];
+
+var [r,g,...others] = colors;
+
+console.log(r); // red
+console.log(others); ["blue", "pink"];
+
+4) Using Spread operators to copy
+
+var elems = [45,10];
+
+var data = [...elems, 24]; // take a copy of elems and add "24" to copy
+
+data = elems; // reference
+
+let product =  {name:"iPhone 14", price:98000.00, "category": "mobile"};
+
+let cpy = {...product}; // clone not ref
+
+let ref = product; // refernce
+
+Day 2:
+TypeScript and Webpack
+
+
+
 
