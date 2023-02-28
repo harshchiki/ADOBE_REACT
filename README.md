@@ -189,4 +189,7 @@ Only executable global modules are in root
 
  from any terminal $ tsc
 
- 
+
+ ===
+
+ $npm install
