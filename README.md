@@ -228,3 +228,19 @@ filter, map, reduce
 
 Filter ==> return a subset based on predicate function [true or false]
 in node js one file is one module; all members are private to module until its exported
+
+npm start
+
+========
+
+Unit testing JavaScript
+Testing Frameworks:
+1) Jasmine
+2) Mocha
+3) JEST
+
+E2E testing: Puppetter, Cypress, Protractor, webdriver{selenium}, PlayWright
+
+AAA ==> Assemble Action Assert
+
+Chai is a BDD / TDD assertion library 
