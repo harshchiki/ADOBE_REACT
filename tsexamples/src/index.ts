@@ -1,6 +1,6 @@
 import {random} from 'lodash';
 
-import {forEach, filter} from './lib';
+import {forEach, filter, memo} from './lib';
 
 console.log(random(1, 100));
 let data:number[] = [5,11,3,78,10];
@@ -25,3 +25,25 @@ let mobiles:Product[] = filter(products, p=> p.category === 'mobile');
 
 forEach(evens, console.log);
 forEach(mobiles, console.log);
+
+// const memoFib = memo(fibanocci);
+// console.time("a");
+// console.log(memoFib(34));
+// console.timeEnd("a");
+
+// console.time("b");
+// console.log(memoFib(34)); // issue ?
+// console.timeEnd("b");
+
+function fibonacci(num:number) : number {
+  return (num == 0 || num == 1) ? num : fibonacci(num - 1) + fibonacci(num - 2);
+}
+
+const memoFib = memo(fibonacci);
+console.time("one");
+console.log(memoFib(34));
+console.timeEnd("one");
+
+console.time("two");
+console.log(memoFib(34));
+console.timeEnd("two");

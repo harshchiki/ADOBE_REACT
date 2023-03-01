@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.filter = exports.forEach = void 0;
+exports.memo = exports.filter = exports.forEach = void 0;
 // HOF
 function forEach(elems, action) {
     let i;
@@ -31,6 +31,27 @@ function map(elems, transformFn) {
     });
     return result;
 }
+function createCache() {
+    const cache = new Map();
+    return {
+        get(key) {
+            return cache.get(key);
+        },
+        set(key, value) {
+            cache.set(key, value);
+        }
+    };
+}
+function memo(fn) {
+    const cache = createCache();
+    return function (arg) {
+        if (!cache.get(arg)) {
+            cache.set(arg, fn(arg));
+        }
+        return cache.get(arg);
+    };
+}
+exports.memo = memo;
 //  function memo<T,R>(fn:FunctionType<T,R>) {
 //    var cache:{T: any,R: any} = {}; // cache is a closure; fn is a closure
 //    return function(arg:T){
