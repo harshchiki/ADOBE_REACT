@@ -364,11 +364,89 @@ let product =  {name:"iPhone 14", price:98000.00, "category": "mobile"};
 
 let cpy = {...product}; // clone not ref
 
-let ref = product; // refernce
+let ref = product; // reference
 
 Day 2:
-TypeScript and Webpack
+
+Recap --> NodeJs {V8 JS engine + Libuv C / C++ libraries for Async I/O operations and Event loop}
+NPM as package manager ==> dependencies and devDependencies {Liniting, Testing, Compiler}
+
+package.json
+node_modules {3rd party dependencies are downloaded here when npm install command is used}
+
+Global modules --> only executables and not libraries
+npm root -g
+
+Testing --> Unit testing with JEST, Chai.js --> Assertion library
+
+HOF
+1) function accepts function as argument ==> OCP ==> filter, map, forEach, reduce, ..
+2) function returns a function ==> Closure ==> Memoization pattern
+
+ES2015 / ES 6/ JavaScript 6
+
+1) Arrow operator
+2) let and const
+const PI = 3.14159; 
+PI = 4.1; // error
+
+let & const has block-level scope; if used at global level or function level it works same as "var"
+
+3) Destructring and spread operators
+
+Day 2:
+
+4) Promise API
+
+Asynchronous operations
+
+Synchronous Code:
+let ret = doTask(); // blocking code
+console.log("Bye!!!"); // can be executed only after doTask() completes
+
+Asynchronous Code using Promise
+Assume DoTask() returns Promise
+
+doTask().then(
+    (data) => console.log(data),
+    (err) => console.log(err)
+);
 
 
+console.log("Bye!!"); // this code is not blocked, can execute befire doTask() completes
+
+Example 1:
+```
+function doTask() {
+    return new Promise( (resolve, reject) => {
+        setTimeout(() => {
+            resolve("All Good !!!");
+            // reject("404 not found");
+        }, 2000);
+    })
+}
+
+doTask().then(
+    (data) => console.log(data),
+    (err) => console.log("Boom :-(", err)
+)
+console.log("End!!!");
+```
+
+fetch("https://jsonplaceholder.typicode.com/users") // Promise
+.then(response => response.json()) // Promise
+.then(data => console.log(data))
+
+Callback Hell:
+getConnection()
+.then(con => getProjects(con))
+.then(proj => getEmployees(proj))
+.then(employees => getEmail(employees));
+
+5) Async and Await
+syntactical sugar of way you use Promise API
+
+6) Generators
+return multiple values over a timeline
 
 
