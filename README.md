@@ -449,4 +449,122 @@ syntactical sugar of way you use Promise API
 6) Generators
 return multiple values over a timeline
 
+Promise.resolve("Test");
 
+new Promise((resolve, reject) => {
+    resolve("Test");
+})
+
+==========================
+
+TypeScript and Webpack
+
+npm i -g typescript
+
+Why TS?
+* Provides optional type system for JS.
+* enhance code quality and readblity, understandability
+* sort of documentation
+
+var x = "test"; // string
+x.toUpperCase();
+x = 10; // number
+x++;
+
+Basic types: string, number, boolean
+
+let name:string = "Danny";
+name = 32; // tsc picks this error
+
+a.ts ==> tsc a.ts ==> a.js [ execute this]
+
+-------
+
+1) type
+
+type Person = {
+    name:string;
+    age?:number
+}
+
+let p:Person = {"name":"Smitha", "age": 24};
+
+function addPerson(person:Person) {
+
+}
+
+addPerson({"name":"Smitha", "age": 24});
+addPerson({"name":"Smitha"}); // valid because age is marked as optional
+
+2) interface
+
+2.1) to define a shape of object
+
+interface Product {
+    name:string;
+    price?:number
+}
+
+can be extended
+
+interface Tv extends Product {
+    screen:string;
+}
+
+interface Mobile extends Product {
+    connectivity:string;
+}
+
+let m:Mobile = {"name": "iPhone X", "price": 45000.00, "connectivity":"4G"};
+
+2.2) interface for Realization relationship
+
+interface Renderer {
+    render():void;
+}
+
+// realization
+class WebRenderer implements Renderer {
+    // state and behaviour
+    render():void {
+        // logic to render to DOM
+    }
+}
+
+class TvRenderer implements Renderer {
+    // state and behaviour
+    render():void {
+        // logic to render to DOM
+    }
+}
+
+let renderer:Renderer = new TvRenderer();
+renderer.render();
+
+==============
+
+3) any 
+let data:any = 10;
+data = "sample";
+data = true;
+
+let data:any = getResponse(); // JS code
+
+4) unknown
+
+let data:unknown = 10;
+
+Differences:
+a) any type can be assigned to any other type
+let data:any = 10;
+let value:number = data; // valid
+
+b) unknown type can be assigned only to another unknown type
+
+c) before using unknown type; typechecking has to be done
+
+===
+
+tsexamples>tsc --init
+
+tsconfig.json
