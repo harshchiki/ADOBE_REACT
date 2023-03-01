@@ -571,3 +571,175 @@ tsconfig.json
 
 
 
+Task ==> Convert map() to TS using Generics
+
+======================
+
+Type Predicate functions [ "is" ], "as" and "in" keyword
+
+using "as" for type asserrtion:
+
+```
+type Person = {
+    name: string
+}
+
+type ErrorMsg = {
+    msg:string
+}
+// type predicate function [ is in return]
+function isPerson(data:Person | ErrorMsg) : boolean {
+    return "name" in data;
+}
+
+function isErrorMsg(data:Person | ErrorMsg) : boolean {
+    return "msg" in data;
+}
+
+// union type |
+function printData(data: Person | ErrorMsg): void {
+    if(isPerson(data)) {
+        console.log((data as Person).name);
+    } else if(isErrorMsg(data)) {
+        console.log((data as ErrorMsg).msg);
+    }
+}
+
+printData({"name": "Harry"});
+
+printData({"msg": "Input not valid!!!"});
+
+```
+
+Without TypeAssertion using Type predicate functions:
+```
+function isPerson(data:Person | ErrorMsg) : data is Person {
+    return "name" in data;
+}
+
+function isErrorMsg(data:Person | ErrorMsg) : data is ErrorMsg {
+    return "msg" in data;
+}
+
+// union type |
+function printData(data: Person | ErrorMsg): void {
+    if(isPerson(data)) {
+        console.log(data.name);
+    } else if(isErrorMsg(data)) {
+        console.log(data.msg);
+    }
+}
+
+```
+
+Using JavaScript in TypeScript
+
+npm i lodash
+
+1)
+using typings.d.ts
+
+2) 
+https://github.com/DefinitelyTyped/DefinitelyTyped
+
+npm i -D @types/node
+
+npm i -D @types/react
+
+npm i -D @types/lodash
+
+===========================
+
+JavaScript Build tools
+* Grunt
+* Gulp
+* Webpack
+
+Grunt is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting.
+
+React, Angular, Vue --> Scaffolding codes uses Webpack by default
+
+
+webpackexample> npm init --y
+
+webpackexample> npm i webpack webpack-cli webpack-dev-server typescript html-webpack-plugin -D
+
+webpackexample> tsc --init
+
+webpackexample> npm i css-loader style-loader ts-loader -D
+
+babel-loader ==> ES6+ "js" --> lower version of "JS"
+
+ts-loader => ts ==> js
+
+css-loader ==> loads .css files imported in "js"
+
+a.js
+import "styles.css"
+
+style-loader ==> place the loaded css into <style> </style> of html
+
+index.ts ==> Person.ts, lib.ts [ Person.ts ==> Lib.ts], ...
+
+Webpack creates a single bundle file ==> bundle.js ==> dist
+
+index.html
+<script src="lib.js"></script>
+<script src="person.js"></script>
+<script src="util.js"></script>
+
+--> one network call per <script>, <link>
+--> depdency order has to be maintained
+--> FCP 
+
+Solution:
+<script src="bundle.js"></script>
+
+
+import Product from './Product';
+
+```
+export default class Person {
+    private name:string;
+    private age:number;
+    public constructor(name:string, age:number) {
+        this.name = name;
+        this.age = age;
+    }
+}
+```
+
+npm run dev
+
+asset bundle.js 6.16 KiB [emitted] (name: main)
+./src/index.ts 1.95 KiB [built] [code generated]
+./src/Person.ts 360 bytes [built] [code generated]
+./src/lib.ts 1.01 KiB [built] [code generated]
+
+npm run prod
+asset bundle.js 1.85 KiB [emitted] [minimized] (name: main)
+./src/index.ts 1.95 KiB [built] [code generated]
+./src/Person.ts 360 bytes [built] [code generated]
+./src/lib.ts 1.01 KiB [built] [code generated]
+
+
+The HtmlWebpackPlugin simplifies creation of HTML files to serve your webpack bundles. 
+This is especially useful for webpack bundles that include a hash in the filename which changes every compilation.
+
+<script src="./dist/bundle@42r255.js"></script>
+
+<script src="./dist/bundle#56342r2gw.js"></script>
+
+Browser caches the files
+
+==> Lazy loading ==> many bundles will be created
+
+npm run dev
+npm run prod
+npm start
+
+---
+
+React with TS
+
+

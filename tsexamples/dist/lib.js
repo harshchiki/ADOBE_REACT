@@ -24,16 +24,16 @@ function filter(elems, predicate) {
 exports.filter = filter;
 // filter([3,4,1,11], e => e % 2 === 0)
 // HOF
-//  function map(elems, transformFn) {
-//    let result = [];
-//    forEach(elems, function(elem) {
-//       result.push(transformFn(elem))
-//    });
-//    return result;
-//  }
-//  function memo(fn) {
-//    var cache = {}; // cache is a closure; fn is a closure
-//    return function(arg){
+function map(elems, transformFn) {
+    let result = [];
+    forEach(elems, function (elem) {
+        result.push(transformFn(elem));
+    });
+    return result;
+}
+//  function memo<T,R>(fn:FunctionType<T,R>) {
+//    var cache:{T: any,R: any} = {}; // cache is a closure; fn is a closure
+//    return function(arg:T){
 //       if(!cache[arg]) {
 //          cache[arg] = fn(arg);
 //       } 

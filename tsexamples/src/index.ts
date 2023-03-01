@@ -1,6 +1,8 @@
+import {random} from 'lodash';
+
 import {forEach, filter} from './lib';
 
-
+console.log(random(1, 100));
 let data:number[] = [5,11,3,78,10];
 
 interface Product {
