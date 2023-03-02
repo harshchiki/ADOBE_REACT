@@ -888,7 +888,7 @@ function Welcome() {
 }
 
 ReactDOM.render(<Welcome />, document.getElementById("app"));
-```
+
 returns JSX
 
 function Welcome(props) {
@@ -900,3 +900,96 @@ function Welcome(props) {
 ReactDOM.render(<Welcome msg="Welcome to React" place="Virtual Trg" />, document.getElementById("app"));
 Returned JSX is convered to React Element by BABEL
 
+function Welcome({msg, place}) {
+    return <h1>
+             {msg} training in {place}
+    </h1>
+}
+```
+
+3) Class Component
+
+-> extends Component class
+-> can have state and behaviour
+
+[state and props are keywords in React]
+state --> internal values of component [ Button --> color, caption, size are state]
+```
+class Welcome extends React.Component {
+  state = {
+    data: 100
+  }
+
+  render() {
+    return <div>
+        Date {this.state.data} <br />
+        Message: {this.props.msg} <br />
+        Place : {this.props.place}
+      </div>
+  }
+}
+ReactDOM.render(<Welcome msg="Welcome to React" place="Virtual Trg" />, document.getElementById("app"));
+```
+In functional component JSX is returned
+In class component render() returns JSX
+
+Class Component
+* If state is required
+* Life cycle methods
+
+99% is functional component
+
+<Welcome /> ==> Heap area and state is stored [ data ]
+<Welcome /> ==> Heap area and another copy state is stored [ data ]
+
+class Test {
+    getEmployee() {
+        console.log(this);
+    }
+
+    getEmployee2 = () => {
+        console.log(this);
+    }
+
+    getRef() {
+        return {
+            a: getEmployee.bind(this),
+            b: getEmployee2
+        }
+    }
+}
+
+let obj = new Test();
+let {a, b } = obj.getRef;
+a(); // here context is lost
+
+b(); // arrow functions will use enclosing context
+
+==============
+JavaScript:
+function Welcome({msg}) {
+     return <h1> Hello {msg} <h1>
+}
+<Welcome msg="Banu"/>
+
+Functional Components in TypeScript
+
+function Welcome({msg} :{msg?:string}):ReactElement {
+    return <h1> Hello {msg} <h1>
+}
+
+or
+
+type Props = {
+    msg?:string,
+    place?:string
+}
+
+function Welcome(props:Props):ReactElement {
+    return <h1> Hello {props.msg} {props.place} <h1>
+}
+
+<Welcome/>
+<Welcome msg="Banu" place="Virtual"/>
+
+@Resume 11:10
