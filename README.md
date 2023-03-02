@@ -992,4 +992,42 @@ function Welcome(props:Props):ReactElement {
 <Welcome/>
 <Welcome msg="Banu" place="Virtual"/>
 
-@Resume 11:10
+=======
+Without create-react-app
+1) npm init --y
+2) npm i webpack webpack-cli html-webpack-plugin typescript @types/react @types/react-dom -D
+3) npm i react react-dom
+4) tsc init
+5) webpack.config.js
+
+create-react-app for scaffolding code
+
+npm i -g create-react-app
+create-react-app nameofapp
+
+Now:
+npx create-react-app nameofapp
+
+css folder
+js folder
+template folder
+
+React Approach:
+components/customer [css and components]
+components/product [css and components]
+
+
+
+npx create-react-app customerapp --template typescript
+
+
+========
+
+tsx ==> component
+ts ==> any other ts file
+
+Entry point for Webpack is always "src/index.ts(x)" if not explicitly configured
+
+https://claudiopro.github.io/react-fiber-vs-stack-demo/
+
+
