@@ -1031,3 +1031,34 @@ Entry point for Webpack is always "src/index.ts(x)" if not explicitly configured
 https://claudiopro.github.io/react-fiber-vs-stack-demo/
 
 
+<ul>
+<li>Three</li>
+ <li>1</li>
+ <li>Two</li>
+</ul>
+
+
+Approach 1:
+   this.state.customers.map(c => <CustomerRow 
+                    delEvent ={this.deleteCustomer.bind(this)}
+                    customer={c} 
+                    key={c.id}/>)
+
+Approach 2:
+  constructor(props:Props){
+        super(props);
+        this.deleteCustomer = this.deleteCustomer.bind(this)
+        ///
+  }
+
+  this.state.customers.map(c => <CustomerRow 
+                    delEvent ={this.deleteCustomer}
+                    customer={c} 
+                    key={c.id}/>)
+
+
+Approach 3:
+this.state.customers.map(c => <CustomerRow 
+                    delEvent ={(id) => this.deleteCustomer(id)}
+                    customer={c} 
+                    key={c.id}/>)

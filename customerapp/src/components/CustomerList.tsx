@@ -1,6 +1,7 @@
 import { Component, ReactNode } from "react";
 import Customer from '../model/Customer'; // tsx, ts, jsx, js
 import CustomerRow from "./CustomerRow";
+import Filter from "./Filter";
  
 type Props = {}
 type AppState = {
@@ -44,10 +45,24 @@ export default class CustomerList extends Component<Props, AppState> {
             ]
         }
     }
+    deleteCustomer(id:number):void {
+        // custs will all customers except the one which has id
+        let custs = this.state.customers.filter(c => c.id !== id);
+        //don't do below code --> doesn't enforce reconcillation
+        // this.state.customers = custs;
+        this.setState({
+            "customers": custs
+        }, () => console.log("updated!!!")); // updates state asynchronouly and reconciles
+        //console.log("updated !!!" , this.state.customers); 
+    }
     render(): ReactNode {
         return <div>
+            <Filter />
             {
-                this.state.customers.map(c => <CustomerRow customer={c} key={c.id}/>)
+                this.state.customers.map(c => <CustomerRow 
+                    delEvent ={(id) => this.deleteCustomer(id)}
+                    customer={c} 
+                    key={c.id}/>)
             }
         </div>
     }
