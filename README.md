@@ -740,6 +740,163 @@ npm start
 
 ---
 
-React with TS
+TypeScript Utils => Pick, Partial, Required, ReturnType
 
+Day 3:
+
+React
+Rendering ==> Data to Presentation
+
+* Client Side Rendering
+Pros:
+Payload contains only represeentation of data [ XML / JSON/ RSS / CSV]
+heterogenous client
+Cons:
+Heavy client
+
+Examples of CSR: DOM handling with DOM aPi, jquery, Handlebars, Mustache, Underscore, Backbone, AngularJS, React, Angular, Vue
+
+* Server Side Rendering
+Pros:
+Thin client
+Cons:
+Payload is more for every request
+Can't have heterogenous client
+Examples of SSR: PHP, Servlet & JSP, ASP, ASP.NET, Flask, EJS, PUG, JADE
+
+----
+DOM:
+document.createElement()
+document.getElementByID(..)
+document.querySelector()
+
+jQuery ==> simplified DOM handling and AJAX calls {similar to fetch}
+XmlHttpRequest --> $.ajax("uri") --> fetch()
+
+Templates -> static and dynamic content
+Handlebars, Mustache, ...
+
+<script id="mp_template" type="text/template">
+    Date: {{ time }}
+    <br>
+    Time: {{ date }}
+    <br>
+    Unix time: {{ milliseconds_since_epoch }}
+</script>
+
+{{}} --> Interpolation syntax
+
+SPA --> Single Page Application
+index.html --> different views
+different URLs different view
+depednecy between modules [CustomerModule, ProductModule, CartModule, PaymentModule]
+Secure URLs
+
+Libraries and Framework:
+MVC --> Model View Controller Archtetural pattern
+* Backbone library --> Model and Controller support was provided; we need to choose differnent view templates
+* 2010 --> Google --> AngularJS Framework 
+* Around year 2011 Facebook started to explore new ways of rendering [already using MVC pattern]
+Jordan Walke --> xhp for PHP
+XML in JS ==> Search of Facebook 
+Instagram
+
+2014 --> Open Source --> First JS Conf --> big failure
+
+return <div class=...>
+    Name {name}
+    Age {age}
+</div>
+
+CSS folder
+JS folder
+template folder
+
+Khan academy, Netflix 
+
+----------------------
+VueJS 2014
+Angular --> Google
+React 18 version
+
+https://codepen.io/
+
+1) React createElement() Core API to create ReactElement
+
+let Welcome = React.createElement("h1", {style:{'color':'red'}}, "Welcome to React");
+
+React nodes are not real DOM nodes 
+React nodes can be text or react element or array of react elements
+
+createElement() returns a ReactElement
+
+VDOM ==> Virtual DOM
+
+Renderers for converting
+Virutal DOM ==> DOM
+https://github.com/chentsulin/awesome-react-renderer
+react-dom
+react-native
+react-tv
+
+<div id="app"></div>
+
+ReactDOM.render(Welcome, document.getElementById("app"));
+
+<div id="app">
+    <h1 style={color:red}>
+        Welcome to React
+    </h1>
+</div>
+
+Code Pen:
+JS
+1) Pre-processor
+Babel
+2) CDN
+a) react
+https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js
+b) react-dom
+https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js
+
+Behaviour:
+Turn off Save Automatically and update preview
+
+Save & Close
+
+Reconcillation ==> VDOM to DOM
+
+<div>
+    <h1>Hello</h1>
+    <p>test</p>
+</div>
+
+React.createElement("div", null, [React.createElement("h1",null,"Hello"), React.createElement("p", null, "test"));
+
+Simplifiy creation of React Element using:
+1) functional component
+2) class component
+
+Functional Component:
+
+returns XML
+```
+function Welcome() {
+    return <h1>
+             Welcome to React
+    </h1>
+}
+
+ReactDOM.render(<Welcome />, document.getElementById("app"));
+```
+returns JSX
+
+function Welcome(props) {
+    return <h1>
+             {props.msg} training in {props.place}
+    </h1>
+}
+
+ReactDOM.render(<Welcome msg="Welcome to React" place="Virtual Trg" />, document.getElementById("app"));
+Returned JSX is convered to React Element by BABEL
 
