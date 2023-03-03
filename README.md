@@ -1078,3 +1078,17 @@ RTL ==> react testing library
 "@types/jest": "^27.5.2",
 
 Prior to React 16 we used Enzyme + JEST
+
+============================
+
+End To End testing ==> E2E
+* Protractor ==> Angular
+* PlayWright
+* WebDriver ==> Selenium for JS
+* Puppetter
+* Cypress
+
+npm i cypress -D
+
+Spring Boot / JS / PHP /..
+http://localhost:3000/
