@@ -1295,3 +1295,98 @@ class Second extends React.Component {
 ReactDOM.render(<PersonProvider />, document.getElementById("app"))
 ```
 
+React Hooks 
+Hooks are a new addition in React 16.8. 
+They let you use state and other React features without writing a class.
+
+Prior to 16.8
+Class Component:
+1) state
+2) lifeCycleMethods
+
+Function Component: only view components
+---
+Class Components are heavy --> extends Component
+
+1) useState
+```
+class App extends Component {
+    state = {
+        name: "",
+        count: 0
+    }
+
+    setCount(n) {
+        this.setState({
+            count: n
+        })
+    }
+
+    setName(n) {
+        this.stateState({
+            name:n
+        })
+    }
+}
+```
+using Hook:
+```
+function App() {
+  let [count, setCount] = React.useState(0);
+  let [name, setName] = React.useState("test");
+  
+  function handleClick() {
+    setCount(count + 1);
+  }
+  
+  return <>
+    Count : {count} <br />
+    Name : {name} <br />
+    <button onClick={() => handleClick()}>Change</button>
+  </>
+}
+ReactDOM.render(<App />, document.getElementById("app"))
+
+```
+
+2) useEffect hook works similar to component Life methods
+
+```
+function App() {
+  let [count, setCount] = React.useState(0);
+  let [name, setName] = React.useState("test");
+  
+  function handleClick() {
+    setCount(count + 1);
+  }
+  
+  React.useEffect(() => {
+    console.log("similar to componentDidMount ");
+    return () => console.log("UnMount!!!")
+  },[]);
+  
+  React.useEffect(() => {
+    console.log("called whenever any state or props  changes!!! ==> Similar to componentDidUpdate")
+  });
+  
+   React.useEffect(() => {
+    console.log("called whenever count changes!!!")
+  },[count]);
+  
+  return <>
+    Count : {count} <br />
+    Name : {name} <br />
+    <button onClick={() => handleClick()}>Change</button>
+  </>
+}
+ReactDOM.render(<App />, document.getElementById("app"))
+```
+
+3) useReducer
+4) useContext
+5) useParams
+6) useCallback
+....
+
+
+
