@@ -1092,3 +1092,206 @@ npm i cypress -D
 
 Spring Boot / JS / PHP /..
 http://localhost:3000/
+
+package.json
+  "e2e": "cypress open"
+
+npm run e2e
+
+==================================
+
+Component Life Cycle methods for Class Components
+
+Mounting:
+
+constructor() ==> render() ==> componentDidMount()
+
+* initiliaztion in constructor
+* render with init data 
+* Make Api calls in componentDidMount()
+
+Importance ==> FCP ==> Core Web Vital ==> First Contentful Paint
+
+Updating: 
+
+whenever any state or props change
+state or props change maybe by event handling or componentDidMount() gets new state from server and updates it
+
+shouldComponentUpdate() --> returns true --> render() --> componentDidUpdate()
+shouldComponentUpdate() --> returns false;
+
+shouldComponentUpdate() is the method where we decide should re-render or not by checking props with new_props
+
+componentDidUpdate() ==> Make APi calls based on dependendent data
+
+Example:
+componentDidMount() --> gets Orders
+componentDidUpdate() --> I can get Delivery address for orders
+
+UnMounting:
+Before Component is destroyed
+componentWillUnMount()
+
+===
+Example: How to avoid re-render of Child Component
+```
+
+class Parent extends React.Component {
+  state = {
+    name : "Peter",
+    age: 30
+  }
+  increment() {
+    this.setState( {
+      age: this.state.age + 1
+    })
+  }
+  render() {
+    console.log("parent renders!!!");
+    return <div>
+          Age : {this.state.age} <br />
+          <Child name={this.state.name}/> <br />
+         <button onClick={() => this.increment()}>Change Age</button>
+      </div>
+  }
+}
+
+class Child extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+      if(this.props.name === nextProps.name) {
+        return false;
+      }
+    return true;
+  }
+  render() {
+    console.log("child renders!!!");
+    return <div>
+      Name in Child: {this.props.name}
+     </div>
+  }
+}
+ReactDOM.render(<Parent />, document.getElementById("app"))
+
+```
+
+Example: How to avoid re-render of Child Component if it is Functional Component
+
+```
+
+class Parent extends React.Component {
+  state = {
+    name : "Peter",
+    age: 30
+  }
+  increment() {
+    this.setState( {
+      age: this.state.age + 1
+    })
+  }
+  render() {
+    console.log("parent renders!!!");
+    return <div>
+          Age : {this.state.age} <br />
+          <MemoChild name={this.state.name}/> <br />
+         <button onClick={() => this.increment()}>Change Age</button>
+      </div>
+  }
+}
+
+function Child (props) {
+    console.log("child renders!!!");
+    return <div>
+      Name in Child: {props.name}
+     </div>
+}
+
+let MemoChild = React.memo(Child);
+ReactDOM.render(<Parent />, document.getElementById("app"))
+
+```
+Abstract code for memo()
+memo() is a HOC 
+```
+function memo(ChildComponent) {
+    var props = {}; // like cache
+    check new_props with closure props;
+    return ChildComponent();
+    or
+    return;
+}
+```
+
+Customization:
+```
+function checkDiff(props, newProps) {
+    //logic
+}
+
+let MemoChild = React.memo(Child, checkDiff);
+
+```
+
+React Context
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+```
+let PersonContext = React.createContext();
+
+class PersonProvider extends React.Component {
+  state = {
+    name :"Jack",
+    email:"jack@adobe.com",
+    updateEmail:this.updateEmail.bind(this)
+  }
+  updateEmail(em) {
+    console.log(em)
+    this.setState({
+      email:em
+    });
+  }
+  
+  render() {
+    return <div>
+      <PersonContext.Provider value={this.state}>
+        <App />
+      </PersonContext.Provider>
+     </div>
+  }
+}
+
+function App() {
+  return <div>
+    <h1>I am App!!!</h1>
+    <First />
+    </div>
+}
+
+function First() {
+  return <div>
+    <h1>I am First !!!</h1>
+    <Second />
+    </div>
+}
+
+class Second extends React.Component {
+  
+  render() {
+    return <div>
+        <PersonContext.Consumer>
+          {
+            value => {
+              return <div>
+                  <h3> I Am Second !!! </h3>
+                    Name : {value.name} <br />
+                    Email : {value.email} <br />
+                <button onClick={() => value.updateEmail("me@gmail.com")} type="button">Change Email </button>
+               </div>
+            }
+          }
+         </PersonContext.Consumer>
+     </div>
+  }
+}
+ReactDOM.render(<PersonProvider />, document.getElementById("app"))
+```
+
