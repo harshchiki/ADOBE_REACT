@@ -13,6 +13,6 @@ root.render(<App />);
 
 Prior to React 18
 import ReactDOM from 'react-dom';
-ReactDOM.render(<App/>,document.getElementById('root'))
+ReactDOM.render(<App/>,document.getElementById('root')); 
 
 */

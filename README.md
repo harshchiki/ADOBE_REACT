@@ -1066,3 +1066,15 @@ this.state.customers.map(c => <CustomerRow
 
 Day 4
 npx create-react-app customerapp --template typescript
+
+Testing
+React Component Testing --> Unit testing
+E2E testing
+
+RTL ==> react testing library 
+"@testing-library/jest-dom": "^5.16.5",
+"@testing-library/react": "^13.4.0",
+"@testing-library/user-event": "^13.5.0",
+"@types/jest": "^27.5.2",
+
+Prior to React 16 we used Enzyme + JEST

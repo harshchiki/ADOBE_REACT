@@ -8,7 +8,7 @@ type Props = {
 export default class CustomerRow extends Component<Props, {}> {
     render(): ReactNode {
         let {id, firstName, lastName} = this.props.customer;
-        return <div>
+        return <div className="row">
             {firstName} &nbsp; {lastName} &nbsp;
             <button type="button" 
                 onClick={() => this.deleteRow(id)}>
