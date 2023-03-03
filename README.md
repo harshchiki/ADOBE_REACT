@@ -1062,3 +1062,7 @@ this.state.customers.map(c => <CustomerRow
                     delEvent ={(id) => this.deleteCustomer(id)}
                     customer={c} 
                     key={c.id}/>)
+
+
+Day 4
+npx create-react-app customerapp --template typescript

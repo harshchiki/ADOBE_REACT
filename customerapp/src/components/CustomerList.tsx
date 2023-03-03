@@ -5,7 +5,8 @@ import Filter from "./Filter";
  
 type Props = {}
 type AppState = {
-    "customers": Customer[]
+    "customers": Customer[],
+    "original" :Customer[]
 }
 export default class CustomerList extends Component<Props, AppState> {
     
@@ -41,10 +42,48 @@ export default class CustomerList extends Component<Props, AppState> {
                 "id": 6,
                 "firstName": "Phoebe",
                 "lastName": "Buffay"
+            }],
+            "original":  [{
+                "id": 1,
+                "firstName": "Rachel",
+                "lastName": "Green "
+            },
+            {
+                "id": 2,
+                "firstName": "Chandler",
+                "lastName": "Bing"
+            },
+            {
+                "id": 3,
+                "firstName": "Joey",
+                "lastName": "Tribbiani"
+            },
+            {
+                "id": 4,
+                "firstName": "Monica",
+                "lastName": "Geller"
+            },
+            {
+                "id": 5,
+                "firstName": "Ross",
+                "lastName": "Geller"
+            },
+            {
+                "id": 6,
+                "firstName": "Phoebe",
+                "lastName": "Buffay"
             }
             ]
         }
     }
+
+    filterCustomers(txt:string):void {
+        let custs = this.state.original.filter(c => c.lastName.toLowerCase().indexOf(txt.toLowerCase()) >= 0 );
+        this.setState({
+            "customers": custs
+        }); // updates state asynchronouly and reconciles
+    }
+
     deleteCustomer(id:number):void {
         // custs will all customers except the one which has id
         let custs = this.state.customers.filter(c => c.id !== id);
@@ -57,7 +96,7 @@ export default class CustomerList extends Component<Props, AppState> {
     }
     render(): ReactNode {
         return <div>
-            <Filter />
+            <Filter filterEvent={this.filterCustomers.bind(this)}/>
             {
                 this.state.customers.map(c => <CustomerRow 
                     delEvent ={(id) => this.deleteCustomer(id)}
