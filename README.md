@@ -1574,3 +1574,31 @@ until bundle.js is downloaded into broweser nothings comes up on screen ==> FCP 
 
 Solution: divide components into multiple bundles and implement lazy loading....
 
+---
+
+extract images.zip into "mobileapp/public/images" folder
+
+created data.json with 2 endpoints /orders and /products
+
+npx json-server --watch data.json --port 1234
+http://localhost:1234/products
+http://localhost:1234/orders
+
+React --> Make api call to RESTful web services to fetch products
+
+fetch products by RESTful --> place it into context
+
+index.tsx
+root.render(
+  <ProductProvider>
+    <App />
+  </ProductProvider>
+);
+
+React Developer tools to inspect ProductProvider
+
+=================================
+
+8:30
+
+
