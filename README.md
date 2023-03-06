@@ -1388,5 +1388,189 @@ ReactDOM.render(<App />, document.getElementById("app"))
 6) useCallback
 ....
 
+Day 5
+Context: React Context ==> to avoid props drill; Provider; Consumer ==> React 16.6
+Hooks ==> React 16.8 ==> Goal is use Functional Component instead of class Components
+* useState to declare state variables in functional component
+--> state variable, mutation function; internal mechanism forces reconcillation [like setState()]
+let [name, setName] = useState<string>("");
 
+think setName internally triggers reconcillation
+setName("George")
+
+{name} 
+
+* useEffect to simulate life-cycle methods of class components
+componentDidMount(); compunentDidUpdate() and componentWillUnmount()
+
+shouldComponentUpdate() --> React.memo()
+
+useEffect(() => {}) // componentDidUpdate
+useEffect(() => {}, []) // componentDidMount
+useEffect(() => {}, [name]) // gets called whenever "name" changes
+
+useEffect(() => {
+    return () => {} // same as componentWillUnmount()
+}, []) // componentDidMount
+
+Hooks contd..
+4) useReducer
+is a hook to be used instead of useState() if
+4.1) mutation depends on previous state
+4.2) conditinally mutate a state
+
+Example: Cart state --> Add To Cart; Increment quantity; remove from cart; clear cart
+
+Actions --> ADD_TO_CART, INCREMENT, REMOVE_FORM_CART, CLEAR_CART
+
+Action Object is one which is of format 
+{type: ACTION_TYPE, payload: product}
+{type: INCREMENT, payload: 3}
+{type: REMOVE_FROM_CART, payload: 3}
+{type: CLEAR_CART}
+
+Example: INCREMENT, DECREMENT a count: number state 
+A reducer function is one which takes state and action; returns the mutated state {new state}
+
+let countReducer = (state, action) => {
+    switch(action.type) {
+        case "INCREMENT": 
+            return {count: state.count + action.payload};
+        case "DECREMENT": 
+            return {count: state.count - 1};
+        default: return state;
+    }
+}
+
+
+let initialState = {
+    count : 0
+}
+
+In fuctional Component
+
+function App() {
+    let [state, dispatch] = useReducer(countReducer, initalState);
+
+
+    function handleIncrement() {
+        dispatch({type:"INREMENT", payload: 10});
+    }
+
+     function handleDecrement() {
+        dispatch({type:"DECREMENT"});
+    }
+
+}
+
+MobileApp:
+1) axios -- js library to make API calls like "fetch()"
+2) json-server --> Mocking RESTful Webservices 
+this treats "json file" as persistance store
+
+data.json
+{
+    "movies": [
+        {id: 1, name :"A", "genre": "action"},
+        {id: 2, "name": "B", "genre": "comedy"}
+    ],
+    "actors": [
+        {
+            id: 23,
+            name : "X"
+        }.
+        {
+            id:54,
+            name: "Y"
+        }
+
+    ]
+}
+
+npx json-server --watch data.json --port 1234
+
+http://localhost:1234/movies // fetch all
+http://localhost:1234/movies/2  // by id ==> single sub-resource
+http://localhost:1234/movies?genre=comedy // sub-set --> filter
+
+http://localhost:1234/actors
+
+3) react-router-dom v6 for client side routing
+npm i react-router-dom
+
+A Single Page Application [ SPA ] ==> one html ==> index.html but different views for different URLs
+http://localhost:3000/
+will display landing page
+http://localhost:3000/products
+prodcuts page
+http://localhost:3000/details/4
+a single product with details
+http://localhost:3000/cart
+....
+
+--> implement LazyLoading of Components
+
+4) CSS framework ==> Bootstrap for RWD {Response Web Design}
+page adopt for different devices and resolution
+
+* Grid System
+* navbar
+* card
+* button
+
+5) fontawesome --> icons
+6) fortawesome --> react components for icons
+
+====
+Mobileapp:
+npx create-react-app mobileapp --template typescript
+npm i axios bootstrap react-bootstrap react-router-dom @fortawesome/react-fontawesome
+@fortawesome/free-solid-svg-icons
+
+index.tsx
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+1) react-router-dom
+
+<Nav.Link as={Link} to="/cart">Cart</Nav.Link> ==> Client side Routing
+
+instead of <a href="/cart"> Cart </a> ==> server side routing
+
+Below component fails --> need to have a root tag; can't return multiple nodes
+function Test() {
+    return <h1> A</h1>
+            <h2>B</h2>
+}
+
+Solution:
+function Test() {
+    return <div> 
+            <h1> A</h1>
+            <h2>B</h2>
+         </div>
+}
+
+leads to <div> polluting
+
+React.Fragment --> just to wrap react nodes --> no UI component
+function Test() {
+    return <React.Fragment> 
+            <h1> A</h1>
+            <h2>B</h2>
+         </React.Fragment>
+}
+short-form for react fragment
+function Test() {
+    return <> 
+            <h1> A</h1>
+            <h2>B</h2>
+         </>
+}
+-----
+
+bundle.js contains all the components of react ==> FCP ==> First Contentful Paint
+<script src="bundle.js"></script>
+until bundle.js is downloaded into broweser nothings comes up on screen ==> FCP issues
+
+Solution: divide components into multiple bundles and implement lazy loading....
 
