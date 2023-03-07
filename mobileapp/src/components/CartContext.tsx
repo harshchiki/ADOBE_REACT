@@ -32,6 +32,7 @@ export default function CartProvider(props:Props) {
 
     function addToCart(id:number) {
         let prd = products.find(p => p.id === id);
+        
         dispatch({type:"ADD_TO_CART", "payload":prd!});
     }
 

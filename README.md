@@ -1649,3 +1649,69 @@ can;t use useState() ==> useReducer()
 
 window.sessionStorage.setItem("user","banu@lucidatechnologies.com");
 
+
+
+```
+useParams(); is for Path Parameter http://localhost:1234/products/3
+useSearchParams();
+
+Pagination: http://localhost:1234/products?page=1&size=10
+Filter: http://localhost:1234/products?category=tv
+
+let [searchParams, setSearchParams] = useSearchParams();
+  
+    let page = searchParams.get("page");
+    let size = searchParams.get("size"); 
+  
+```
+
+Handling Form Data:
+1) Controlled Component
+2) Uncontrolled Component
+
+Controlled Component:
+let [name, setName] = useState("");
+<input type="text" onChange={(evt) => setName(evt.target.value)}>
+In a controlled component, form data is handled by a React component.
+
+Uncontrolled Component :instead of writing an event handler for every state update, you can use a ref to get form values from the DOM.
+<input type="text" ref={nameRef} />
+using  nameRef I can access data from FORM elements when required
+
+Click on Button ==> one event
+
+ProductForm.tsx using Controlled Component
+```
+import axios from "axios";
+import { useState } from "react"
+import { Button } from "react-bootstrap";
+
+export default function ProductForm() {
+    let [name, setName] = useState<string>();
+    let  [description, setDesc]  = useState<string>();
+    let [price, setPrice] = useState<number>();
+   
+    function submit() {
+        let product = {
+            "productDescription":description,
+            "productImageUrl": "/images/iphone-x-in-hand.jpg",
+            "productName": name,
+            "productPrice": price,
+            "productQuantity": 5,
+            "productSeller": "Apple"
+        }
+
+        axios.post("http://localhost:/1234/products", product).then(response => {
+            console.log("Product added!!!");
+            // update the ProductContext also
+        });
+    }
+
+    return <div className="container">
+        Name <input type="text" onChange={(evt) => setName(evt.target.value)}/> <br />
+        Description <input type="text" onChange={(evt) => setDesc(evt.target.value)}/> <br />
+        Price <input type="number" onChange={(evt) => setPrice(+evt.target.value)}/> <br/>
+        <Button type="button" onClick={() => submit()}>Add Product</Button>
+    </div>
+}
+```

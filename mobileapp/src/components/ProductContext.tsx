@@ -22,6 +22,9 @@ export default function ProductProvider(props:Props) {
         });
     },[]);
 
+    function getDetails(id:number) {
+        // 
+    }
     return <ProductContext.Provider value={{products}}>
         {props.children}
     </ProductContext.Provider>

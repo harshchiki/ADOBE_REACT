@@ -33,7 +33,7 @@ export default function CartReducer(state:CartState, action:Action) {
                     p.amount = p.productPrice * p.quantity;
                 }
                 // update the total ...
-            })
+            });
             return {products, total:state.total};
         case "CLEAR_CART":
             return {products:[], total: 0.0}
