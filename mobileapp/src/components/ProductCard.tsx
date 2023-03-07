@@ -27,7 +27,7 @@ export default function ProductCard({product}:Props) {
                 <span className="right">
                     <FontAwesomeIcon icon={faHeart} color="red" className="px-3"/>
                     <FontAwesomeIcon icon={faShoppingCart} 
-                        onClick= {() =>addToCart(product.id)}
+                        onClick= {() => addToCart(product.id)}
                     color="blue"/>
                 </span>
             </div>

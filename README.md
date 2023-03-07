@@ -1647,3 +1647,5 @@ CLEAR_CART
 can;t use useState() ==> useReducer()
 
 
+window.sessionStorage.setItem("user","banu@lucidatechnologies.com");
+

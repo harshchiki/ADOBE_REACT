@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useContext, useReducer, useState } from "react";
 import ICart from "../model/Cart";
 import Product from "../model/Product";
@@ -39,7 +40,17 @@ export default function CartProvider(props:Props) {
     }
 
     function checkout() {
-        // TODO
+        let order: any = {};
+        // order is placed by the customer --> get by login
+        order.customer = window.sessionStorage.getItem("user");
+        order.order_date = new Date();
+        order.items = state.products;
+        
+        axios.post("http://localhost:1234/orders", order).then(response => {
+            console.log("Order Placed!!!");
+            dispatch({type:"CLEAR_CART"});
+        })
+       
     }
     return <CartContext.Provider value={
         {
