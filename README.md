@@ -1618,3 +1618,19 @@ Chrome Web Store
 2) Redux DevTools
 
 
+In Class component ==> ContextConsumer
+
+render() {
+return <ProductContext.Consumer>
+    {
+        value => {
+            // use the value {what is there in context}
+        }
+    }
+
+</ProductContext.Consumer>
+
+In functional Component we have useContext() hook for Consumer
+useContext is a React Hook that lets you read and subscribe to context from your component.
+
+use Props ==> to pass on data in one/two level

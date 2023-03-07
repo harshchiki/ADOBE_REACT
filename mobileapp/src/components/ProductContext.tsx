@@ -6,7 +6,7 @@ type ContextType = {
     products:Product[]
 }
 
-const ProductContext = createContext<ContextType>({
+export const ProductContext = createContext<ContextType>({
     products:[]
 });
 
