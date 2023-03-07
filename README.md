@@ -1715,3 +1715,81 @@ export default function ProductForm() {
     </div>
 }
 ```
+
+React Hooks:
+1) useState
+2) useReducer ==> state needs previous state and conditionally mutate the state
+3) useParams()
+4) useContext()
+5) useSearchParams()
+6) useEffect()
+7) useMemo() ==> memoization of function call
+different from React.memo() ==> HOC to memozie the props of functional component
+to avoid re-render
+8) useCallback() ==> is to memoize the callback function
+without useCallback:
+```
+function Child(props) {
+    console.log("Child renders...");
+   return <button onClick={props.handleClick}>{props.children}</button>
+}
+
+let MemoChild = React.memo(Child);
+
+function App() {
+  console.log("Parent renders...");
+  let [count, setCount] = React.useState(0);
+  let [name, setName] = React.useState("test");
+  
+  function incrementCount() {
+    setCount(count + 1);
+  }
+  
+  function changeName() {
+    setName(name + "..");
+  }
+
+  return <>
+    Count : {count} <br />
+    Name : {name} <br />
+    <MemoChild handleClick={incrementCount}>Child 1</MemoChild>
+    <MemoChild handleClick={changeName}>Child 2</MemoChild>
+  </>
+}
+ReactDOM.render(<App />, document.getElementById("app"))
+
+```
+
+With useCallback
+
+```
+function Child(props) {
+    console.log("Child renders...");
+   return <button onClick={props.handleClick}>{props.children}</button>
+}
+
+let MemoChild = React.memo(Child);
+
+function App() {
+  console.log("Parent renders...");
+  let [count, setCount] = React.useState(0);
+  let [name, setName] = React.useState("test");
+  
+  const incrementCount = React.useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+  
+  const changeName  = React.useCallback(() => {
+    setName(name + "..");
+  },[name]);
+
+  return <>
+    Count : {count} <br />
+    Name : {name} <br />
+    <MemoChild handleClick={incrementCount} >Child 1 </MemoChild>
+    <MemoChild handleClick={changeName} >Child 2</MemoChild>
+  </>
+}
+ReactDOM.render(<App />, document.getElementById("app"))
+
+```
