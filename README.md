@@ -1016,6 +1016,8 @@ React Approach:
 components/customer [css and components]
 components/product [css and components]
 
+https://facebook.github.io/flux/docs/videos
+
 
 
 npx create-react-app customerapp --template typescript
@@ -1598,7 +1600,21 @@ root.render(
 React Developer tools to inspect ProductProvider
 
 =================================
+https://facebook.github.io/flux/docs/videos
 
-8:30
+
+Day 6
+
+Application using Hooks and ReactContext, react-router-dom
+
+bundle.js
+FCP core web vitals --> code splitting and lazy loading
+
+Fake RESTful WS
+npx json-server --watch data.json --port 1234
+
+Chrome Web Store
+1) React Development Tools
+2) Redux DevTools
 
 

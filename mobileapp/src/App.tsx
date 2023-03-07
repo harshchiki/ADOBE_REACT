@@ -3,6 +3,8 @@ import './App.css';
 
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import {faShoppingCart} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import ProductList from './components/ProductList';
 import ProductForm from './components/ProductForm';
 import Default from './components/Default';
@@ -21,7 +23,9 @@ function App() {
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/products">Phones</Nav.Link>
             <Nav.Link as={Link} to="/new_product">New Product</Nav.Link>
-            <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
+            <Nav.Link as={Link} to="/cart">
+              <FontAwesomeIcon icon={faShoppingCart}/>
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
