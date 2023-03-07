@@ -5,6 +5,7 @@ import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.min.css'; // css-loader style-loader
 import ProductProvider from './components/ProductContext';
+import CartProvider from './components/CartContext';
 
 
 const root = ReactDOM.createRoot(
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <ProductProvider>
-    <App />
+    <CartProvider>
+      <App />
+    </CartProvider>
   </ProductProvider>
 );
 

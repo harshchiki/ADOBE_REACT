@@ -1634,3 +1634,16 @@ In functional Component we have useContext() hook for Consumer
 useContext is a React Hook that lets you read and subscribe to context from your component.
 
 use Props ==> to pass on data in one/two level
+
+* UserContext ==> user logins --> user avatar and name
+* ProductContext
+* CartContext
+ADD_TO_CART
+REMOVE_FROM_CART
+INCREMENT
+DECREMENT
+CLEAR_CART
+
+can;t use useState() ==> useReducer()
+
+

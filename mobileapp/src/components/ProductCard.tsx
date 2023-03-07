@@ -1,12 +1,16 @@
 import { faHeart, faShoppingCart } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
 import Product from "../model/Product"
+import { CartContext } from "./CartContext"
 
 type Props = {
     product:Product
 }
 export default function ProductCard({product}:Props) {
+    let {addToCart} = useContext(CartContext);
+
     return <div className="col-md-4">
         <div className="card">
             <Link to={`/details/${product.id}`}>
@@ -22,7 +26,9 @@ export default function ProductCard({product}:Props) {
                 <span className="left">Rs.{product.productPrice}</span>
                 <span className="right">
                     <FontAwesomeIcon icon={faHeart} color="red" className="px-3"/>
-                    <FontAwesomeIcon icon={faShoppingCart} color="blue"/>
+                    <FontAwesomeIcon icon={faShoppingCart} 
+                        onClick= {() =>addToCart(product.id)}
+                    color="blue"/>
                 </span>
             </div>
         </div>
