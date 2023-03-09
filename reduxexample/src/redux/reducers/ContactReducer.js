@@ -10,7 +10,7 @@ const ContactReducer = (state = [], action) => {
             {...action.payload}
         ];
      case REMOVE_CONTACT:
-        return state.filter(contact => contact.email !== action.email);
+        return state.filter(contact => contact.email !== action.payload);
      default:
         return state;
     }
