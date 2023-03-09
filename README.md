@@ -1618,6 +1618,8 @@ Chrome Web Store
 2) Redux DevTools
 
 
+
+
 In Class component ==> ContextConsumer
 
 render() {
@@ -1793,3 +1795,211 @@ function App() {
 ReactDOM.render(<App />, document.getElementById("app"))
 
 ```
+
+Day 7
+
+Controlled Components and Uncontrolled Components
+
+Hooks:
+1) useState
+2) useEffect
+3) useReducer
+4) useContext
+5) useCallback
+6) useParams
+7) useSearchParams
+8) useNavigate
+9) useRef
+
+Custom Hooks ==> build hooks on top of existing hooks; starts with "use"
+https://react-spectrum.adobe.com/react-spectrum/
+
+type Props<T> = {
+    data:T[] | null;
+    done: boolean
+}
+function useRestCall<T>(url:string): Props<T> {
+    const [data, setData] = useState<T|null>(null);
+    const [done, isDone] = useState<boolean>(false);
+
+    useEffect(() => {
+        // check if data is there in window.localStorage ==> if present no API call
+        // setData(window.localStorage.getItem("products")); ==> PWA
+        (asyc () => {
+            let response = await  fetch(url);
+            let data = await response.json();
+            setData(data);
+            isDone(true);
+
+        })();
+    }, [url]);
+
+    return {
+        data,
+        done
+    }
+}
+
+
+function MyComp () {
+    let {data, done} = useRestCall<Product>("http://localhost:1234/products");
+}
+
+============
+
+Errorboundary
+
+```
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.log(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children; 
+  }
+}
+
+<ErrorBoundary>
+    <A/>
+    <B/>
+    <C/>
+</ErrorBoundary>
+
+<ErrorBoundary>
+    <D/>
+    <E/>
+</ErrorBoundary>
+```
+
+HOC ==> High Order Components
+Component accepts component as argument and returns a Component
+* Inject new state and props
+* Conditionally render a component
+function Child() {...}
+let MemoChild = React.memo(Child);
+
+```
+const ChartArea = ({name}) => {
+    return <div className="chart">
+        {name}
+        {count}
+    </div>
+}
+
+const TableArea = () => {
+    return <table>
+        <tr> ...</tr>
+    </table>
+}
+
+Both the above components needs Counter mechanism
+
+function clickCounterHOC (WrappedComponent) {
+    return class extends React.Component {
+        constructor(props) {
+            this.state = {
+                count: 0
+            };
+            this.handleClick = this.handleClick.bind(this);
+        }
+
+        handleClick() {
+            this.setState({count: this.state.count + 1})
+        }
+
+        render() {
+            return <div onClick={this.handleClick}>
+                    Count : { this.state.count} <br />
+                    <WrappedComponent {...this.props} {...this.state}>
+            </div>
+        }
+    }
+}
+
+let ChartAreaWithHOC = clickCounterHOC(ChartArea);
+
+<ChartAreaWithHOC name="Adobe">
+```
+
+Predictable State Managment:
+
+Context ==> Avoid this as state management for bigger application
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+User login ==> store User Profile data in Context ==> use it accross component
+Dan Abramov
+
+Issues:
+1) Time-Travel Debugging
+2) Statemangement needs to externalized [ separate module]
+3) MicroFrontend: https://micro-frontends.org/
+
+
+2011 In Facebook 
+* React for Search feature
+* Implementing Chat feature
+
+Flux Pattern for State Management
+
+In Flux:
+store has state; store has all the subscriptions; whenever state changes --> emit(event, payload)
+views which are registered for event gets latest data as payload
+
+Flux pattern -==> we can have multiple stores
+
+Dan Abramov ==> Redux
+
+Redux Characters:
+1) Action 
+object with {type:...,payload:..}
+2) ActionCreator
+function addToCart(product) {
+    return {
+        type : "ADD_TO_CART",
+        payload: product
+    }
+}
+3) Store --> Redux has single store
+4) RootReducer
+5) Reducer
+
+
+react-redux --> connect
+
+connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
+
+function mapStateToProps(state) {
+    return {
+        products: state->state.items,
+        cart: state->state.cartItems
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addToCart: (p) -> dispatch({type:ADD_TO_CART, payload:p}),
+        increment: (id) -> dispatch({type:INDREMENT, payload: id})
+    }
+}
+
+state = {
+    items: [...],
+    cart: [...]
+}

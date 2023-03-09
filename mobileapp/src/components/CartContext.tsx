@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ICart from "../model/Cart";
 import Product from "../model/Product";
 import CartReducer from "./CartReducer";
@@ -27,6 +28,7 @@ type Props = {
 }
 
 export default function CartProvider(props:Props) {
+    const navigate = useNavigate();
     let [state, dispatch] = useReducer(CartReducer, initalState);
     let {products} = useContext(ProductContext);
 
@@ -50,6 +52,7 @@ export default function CartProvider(props:Props) {
         axios.post("http://localhost:1234/orders", order).then(response => {
             console.log("Order Placed!!!");
             dispatch({type:"CLEAR_CART"});
+            //navigate("/products")
         })
        
     }
