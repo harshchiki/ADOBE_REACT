@@ -2003,3 +2003,11 @@ state = {
     items: [...],
     cart: [...]
 }
+
+
+
+===
+
+npx create-react-app reduxexample
+
+reduxexample> npm i redux react-redux
