@@ -2011,3 +2011,79 @@ state = {
 npx create-react-app reduxexample
 
 reduxexample> npm i redux react-redux
+
+====
+
+Mobileapp-REDUX:
+removed CartReducer.ts and CartContext.tsx
+index.tsx removed CartProvider
+Redux toolkit [ RTK ] => The official, opinionated, batteries-included toolset for efficient Redux development
+
+by using RTK --> we can eliminate lots of code like connect(), actioncreators, reducers
+
+react-redux hooks:  we can use hooks for mapStateToProps and mapDispatchToProps
+
+
+npm i react-redux @reduxjs/toolkit
+
+As createSlice creates your actions as well as your reducer for you, you don't have to worry about type safety here. Action types can just be provided inline:
+
+
+const Countslice = createSlice({
+  name: 'test',
+  initialState: 0,
+  reducers: {
+    increment: (state, action: PayloadAction<number>) => state + action.payload,
+    decrement: (state, action) => state - action.payload
+  },
+})
+
+const ProductSlide = createSlice( {
+    reducers: {
+        addProduct: ...
+        removeProduct: ..
+    }
+})
+
+const CartSlice = ...
+
+
+
+// now available:
+slice.actions.increment(2)
+action type will be: "test/increment"
+
+// also available:
+slice.caseReducers.increment(0, { type: 'increment', payload: 5 })
+
+
+RTK passes copy of state to addToCart and not reference; any changes done to copy it automaitically
+updates the state in store.
+
+Below code is done by Immer.js
+Place a Proxy method on the below code
+state ==> copy state 
+pass it to addToCart
+    addToCart: (state, action: PayloadAction<ICart>) => {
+                state.cart.push({...action.payload});
+    },
+Proxy will pass the state to store
+
+react-redux hooks:
+useSelector() is a hook: The selector is approximately equivalent to the mapStateToProps argument to connect
+
+useDispatch() hook: approximately equivalent to the mapDispatchToProps argument to connect
+
+===
+
+CartContext ==> Sync Redux
+ProductContext ==> Async Redux
+
+Mobx, MST
+
+=============
+
+
+
+
+
