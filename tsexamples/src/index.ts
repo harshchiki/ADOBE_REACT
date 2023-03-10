@@ -1,6 +1,13 @@
 import {random} from 'lodash';
 
 import {forEach, filter} from './lib';
+import Person from './Person';
+
+let p:Person = new Person("Kim", 32);
+
+//@ts-ignore
+console.log(p.getName(), p.getAge(), p["country"]);
+
 
 console.log(random(1, 100));
 let data:number[] = [5,11,3,78,10];

@@ -2216,4 +2216,86 @@ onst usersSlice = createSlice({
 =====
 
 
-Mobx
+mobileapp-mobx.zip
+
+extract
+npm install
+
+=====
+
+ TypeScript ==> Decorators ==> to inject new properties to object; modify behaviour; validation
+
+ Angular uses decorators
+
+ @Component({
+    template-url:'product.html',
+    selector:'app-product',
+    style-url:'styles.css'
+ })
+ public class ProductComponent {
+    product:Product;
+
+    updateProduct() {
+
+    }
+ }
+
+
+ @Component({
+    template:'<div> {product.name} {product.price}</div>',
+    selector:'app-product'
+ })
+public class CustomerComponent {
+
+}
+ Now ProductComponent will have product, updateProduct, template-url, selector, style-url
+
+ <app-product/>
+
+ React uses Specialization pattern
+
+ class ProductComponent extends Component {
+
+ }
+
+ ====
+
+ Decorators are simple functions with specific arguments:
+ 1) Class Decorator
+
+ function Component(constructor:Function) {
+    Object.defineProperty(constructor.prototype, "template": ...)
+     Object.defineProperty(constructor.prototype, "selector": ...)
+   
+ }
+
+ 2) Method decorator
+ function Memo(target:any, methodName:string, descriptor?:PropertyDescriptor) {
+    // proxy and cache
+ }
+
+ 3) PropertyDecorator
+ function Upper(target:any, propertyKey:string) {
+    // read name ==> toUpperCase
+ }
+
+ class Computation {
+    @Upper
+    name:string;
+    @Memo()
+    fibanocci(number){
+        ///
+    }
+ }
+
+ let c1 = new Computation();
+
+ ==================
+
+ Mobx
+ Observable design pattern
+ tsconfig.json
+  "experimentalDecorators": true
+
+npm i mobx mobx-logger mobx-react-lite
+
