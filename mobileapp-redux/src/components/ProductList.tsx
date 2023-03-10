@@ -1,12 +1,21 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
+import { fetchProducts } from "../redux/ProductApi";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 import ProductCard from "./ProductCard";
-import { ProductContext } from "./ProductContext";
+
 
 export default function ProductList() {
-    let {products} = useContext(ProductContext); // subscribe for products from ProductContext
-    return <div className="container">
+ let dispatch = useAppDispatch();
+ let {status, list:products, error}  = useAppSelector(state => state.products);
+
+ useEffect(() => {
+    dispatch(fetchProducts()); // thunk call
+ }, []);
+
+ return <div className="container">
         <div className="row">
             {
+                (status == "loading") ? <h1>Loading...</h1>:
                 products.map(p => <ProductCard product={p} key ={p.id}/>)
             }
         </div>

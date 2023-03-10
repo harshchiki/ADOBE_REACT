@@ -2140,7 +2140,76 @@ root.render(
 
 npx json-server --watch data.json --port 1234
 
+Async Redux
+
+Redux is Synchronous
+view -> dispatch(action) --> update the store --> view gets new state from store --> re-renders
+
+Api calls are asynchronous
+
+getUsers() {
+    axios.get(URL)
+}
+dispatch(getUsers())
+    --> state will have
+        loading: true,
+        users: [],
+        error: null
+    --> once getUsers() executes successfully
+        loading:false,
+        users: [...],
+        error: null
+    --> if any exception in getUsers()
+        loading:false,
+        error: errorMessage
+        users:[]
+
+when loading ==> <Spinner />
+if successfull: <Users />
+if error : <Error />
+
+Redux uses middleware for Async:
+* Thunk
+* Saga
+* redux-observable
+
+https://redux.js.org/tutorials/fundamentals/part-6-async-logic
+https://redux-toolkit.js.org/usage/usage-with-typescript#createasyncthunk
 
 
+const fetchUserById = createAsyncThunk(
+  'users/fetchById',
+  async (userId: number) => {
+    const response = await fetch(`https://reqres.in/api/users/${userId}`)
+    // Inferred return type: Promise<MyData>
+    return (await response.json()) as MyData
+  }
+)
+View:
+dispatch(fetchUserById(2))
+dispatch({type:, payload})
+
+onst usersSlice = createSlice({
+  name: 'users',
+  initialState: {
+    loading: false
+    entities: {},
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+     builder.addCase(fetchUserById.pending, (state, { payload }) => {
+        loading = true;
+    })
+    builder.addCase(fetchUserById.fulfilled, (state, { payload }) => {
+     loading = false;
+     entitites = payload
+    })
+    builder.addCase(fetchUserById.rejected, (state, {payload}) => {
+      loading = false;
+      error = payload
+    })
+  },
+})
 
 
