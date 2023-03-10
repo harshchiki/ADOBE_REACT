@@ -2085,6 +2085,61 @@ Mobx, MST
 
 Day 8
 
+Predictable State Management:
+instead of react managing the state in ReactContext {not meant to be state mangement}
+
+* Flux
+* Redux
+* Mobx
+
+Redux:
+* Single Store where state is managed
+* Reducers ==> (state,action) ==> copy state, mutate and return new state
+CartReducer, UserReducer, ProductReducer, PaymentReducer,...
+* RootReducer ==> combineReducers({...})
+* react-redux has connect() HOC used to connect redux <--> React
+mapStateToProps and mapDispatchToProps
+* View dispatch(action) ==> store ==> passes action & state to RootReducer, RootReducer passes them to each of reducers; returned value for reducer is sent to store to update. store passes state to SmartComponent { connect()(App) }
+
+RTK ==> ReduxToolkit ==> simplifies way you use Redux
+ "@reduxjs/toolkit": "^1.9.3", ==> instead of "redux"
+ "react-redux": "^8.0.5",
+
+MobileApp:
+removed CartReducer and CartContext
+
+
+const store = createStore(rootReducer, compose(window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+
+// instead of createStore()
+// devTools:true by default
+const store = configureStore({
+    // combineReducers
+    reducer:{
+        cart: cartReducer,
+    }
+});
+
+====
+
+React-Redux Hooks:
+useSelector() ==> mapStateToProps()
+and useDispatch() ==> mapDispatchToProps()
+
+index.tsx
+```
+root.render(
+  <Provider store={store}>
+  <ProductProvider>
+      <App />
+  </ProductProvider>
+  </Provider>
+);
+```
+
+npx json-server --watch data.json --port 1234
+
 
 
 

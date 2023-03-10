@@ -2,10 +2,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { cartReducer } from "./CartSlice";
 
+// instead of createStore()
 const store = configureStore({
     // combineReducers
     reducer:{
-        cart: cartReducer,
+        cart: cartReducer
     }
 });
 
@@ -25,4 +26,10 @@ function add(): number {
 }
 
 type T1 = ReturnType<typeof add>
+
+async function doTask() {
+    let response = await axios.get("https://json-placeholder.com/users");
+    return response.data;
+}
+type ResponseType = ReturnType<typeof doTask>
 */

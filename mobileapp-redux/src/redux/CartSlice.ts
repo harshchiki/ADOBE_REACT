@@ -21,11 +21,12 @@ const cartSlice = createSlice({
         increment: (state, action:PayloadAction<number>) => {
             const item = state.cart.find(item => item.id === action.payload);
             if(item?.quantity) item.quantity++;
+            if(item?.amount) item.amount = item.productPrice * item.quantity
             state.total = state.cart.map(item => item.amount).reduce( (a1, a2) => a1 + a2);
         },
         clearCart: (state) => {
             state.cart = [];
-            total : 0.0
+            state.total = 0.0
         }
     }
 });

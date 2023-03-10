@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import Product from "../model/Product"
+import { addToCart } from "../redux/CartSlice"
+import { useAppDispatch } from "../redux/store"
 
 type Props = {
     product:Product
 }
 export default function ProductCard({product}:Props) {
-  
+   const dispatch = useAppDispatch(); // uses useDispatch() hook
     return <div className="col-md-4">
         <div className="card">
             <Link to={`/details/${product.id}`}>
@@ -25,6 +27,11 @@ export default function ProductCard({product}:Props) {
                 <span className="right">
                     <FontAwesomeIcon icon={faHeart} color="red" className="px-3"/>
                     <FontAwesomeIcon icon={faShoppingCart} 
+                    onClick={() => dispatch(addToCart({
+                        ...product,
+                        quantity:1,
+                        amount:product.productPrice
+                    }))}
                     color="blue"/>
                 </span>
             </div>

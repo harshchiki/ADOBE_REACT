@@ -1,11 +1,13 @@
 
 import { useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { ContactView } from './ContactView';
 import { createContact, deleteContact } from './redux/ActionTypes';
 
-function App(props) {
+function App() {
+  let {contacts} = useSelector(state => state.contacts);
+  let dispatch = useDispatch();
   let [name, setName] = useState("");
   let [email, setEmail] = useState("");
 
@@ -15,7 +17,7 @@ function App(props) {
       name,
       email
     }
-    props.createNewContact(contact);
+    createNewContact(contact);
   }
   return (
    <div>
@@ -28,9 +30,9 @@ function App(props) {
     </form>
     <ul>
     {
-      props.contacts.map(contact => <ContactView 
+      contacts.map(contact => <ContactView 
         contact={contact} 
-        deleteEvent={() => props.removeContact(contact.email)}
+        deleteEvent={() => dispatch({"type": "REMOVE_CONTACT", payload: contact.email})}
         key ={contact.email}/>)
     }
     </ul>
@@ -38,17 +40,19 @@ function App(props) {
   );
 }
 
-// state ==> redux store state
-// returned values are props to App
-function mapStateToProps(state) {
-  return {
-    contacts: state.contacts
-  }
-}
- function mapDispatchProps(dispatch) {
-   return {
-    createNewContact: contact => dispatch(createContact(contact)),
-    removeContact: email => dispatch(deleteContact(email))
-   }
- }
-export default connect(mapStateToProps, mapDispatchProps)(App);
+// // state ==> redux store state
+// // returned values are props to App
+// function mapStateToProps(state) {
+//   return {
+//     contacts: state.contacts
+//   }
+// }
+//  function mapDispatchProps(dispatch) {
+//    return {
+//     createNewContact: contact => dispatch(createContact(contact)),
+//     removeContact: email => dispatch(deleteContact(email))
+//    }
+//  }
+// export default connect(mapStateToProps, mapDispatchProps)(App);
+
+export default App;
