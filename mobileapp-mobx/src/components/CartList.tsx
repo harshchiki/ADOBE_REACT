@@ -2,11 +2,12 @@ import ICart from "../model/Cart"
 import {Button} from 'react-bootstrap'
 import { useContext } from "react"
 import { CartContext } from ".."
+import { observer } from "mobx-react-lite"
 
 type Props = {
     product:ICart
 }
-export default function CartList({product}:Props) {
+ function CartList({product}:Props) {
     let cartStore = useContext(CartContext);
 
     return <div className="row">
@@ -25,3 +26,5 @@ export default function CartList({product}:Props) {
        <div className="col-md-2">Amount {product.amount}</div>
     </div>
 }
+
+export default observer(CartList);

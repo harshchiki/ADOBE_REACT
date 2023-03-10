@@ -1,10 +1,11 @@
+import { observer } from "mobx-react-lite";
 import { useContext } from "react"
 import { Button } from "react-bootstrap";
 import { CartContext } from "..";
 
 import CartList from "./CartList";
 
-export default function Cart() {
+function Cart() {
     let cartStore = useContext(CartContext);
     const cart = cartStore.getCart;
     return <div className="container">
@@ -19,3 +20,5 @@ export default function Cart() {
         </div>
     </div>
 }
+
+export default observer(Cart);
